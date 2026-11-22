@@ -1,0 +1,22 @@
+# Prüft bei jedem Hochladen auf GitHub, ob die iPhone-App fehlerfrei baut.
+name: iOS-Build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Xcode-Version anzeigen
+        run: xcodebuild -version
+      - name: Für den Simulator bauen (ohne Signatur)
+        run: |
+          xcodebuild build \
+            -project EbenEzer.xcodeproj \
+            -scheme EbenEzer \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO

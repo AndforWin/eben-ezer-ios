@@ -1,0 +1,83 @@
+Eben-Ezer für iPhone – Anleitung
+================================
+
+Das ist die iPhone-Version der Android-App „Eben-Ezer – Zeichen seiner Hilfe“.
+Gleiche Funktionen, gleiches Design (GEC-Farben, Gedenkstein-Logo, Playfair-Schrift):
+
+- Zeugnisse festhalten: Datum, Überschrift, Personen, Situation,
+  „Was hat Gott getan?“, Bibelvers, Kategorien
+- Anhänge: Fotos & Videos (Mediathek oder Kamera), Sprachaufnahmen, Audio-Dateien
+- Suche, Filter (Favoriten, Kategorien), „Heute vor … Jahren“, Zufalls-Zeugnis
+- Teilen als gestaltete Bild-Karte, als Text oder mit allen Anhängen
+- App-Sperre mit Face ID / Touch ID / Gerätecode
+- Sicherung als ZIP-Datei – austauschbar mit der Android-App
+  (Sicherung auf dem Android-Handy erstellen → auf dem iPhone wiederherstellen)
+
+Voraussetzungen: iPhone mit iOS 16 oder neuer.
+
+
+1. App bauen und aufs eigene iPhone bringen
+-------------------------------------------
+Du brauchst einen Mac mit dem kostenlosen Programm „Xcode“ (Mac App Store).
+Apple erlaubt das Bauen von iPhone-Apps nur auf einem Mac.
+
+1. Den Ordner „Eben-Ezer-iOS“ (oder die ZIP-Datei) auf den Mac kopieren.
+2. „EbenEzer.xcodeproj“ doppelklicken – Xcode öffnet sich.
+3. Links oben das blaue Projekt „EbenEzer“ anklicken → Reiter
+   „Signing & Capabilities“ → bei „Team“ deine Apple-ID auswählen
+   (falls keine da ist: „Add an Account…“).
+4. iPhone per Kabel anschließen und oben als Ziel auswählen
+   (oder zum Ausprobieren einen Simulator, z. B. „iPhone 15“).
+5. Auf ▶ klicken.
+
+Beim ersten Start auf dem iPhone:
+- Einstellungen → Datenschutz & Sicherheit → Entwicklermodus einschalten.
+- Einstellungen → Allgemein → VPN & Geräteverwaltung → deiner Apple-ID vertrauen.
+
+Hinweis: Mit einer kostenlosen Apple-ID läuft die App 7 Tage, danach in Xcode
+einfach erneut auf ▶ klicken.
+
+Fehlermeldung „Bundle Identifier … is not available“?
+Die Kennung „de.gechn.ebenezer“ ist dann schon bei einem anderen Apple-Konto
+registriert. In Xcode unter „Signing & Capabilities“ bei „Bundle Identifier“
+z. B. „de.gechn.ebenezer.ios“ eintragen.
+
+
+2. In den App Store bringen
+---------------------------
+- Mitgliedschaft im Apple Developer Program (kostenpflichtig, jährlich;
+  für eine Gemeinde/einen Verein ist ein Organisations-Konto möglich).
+- In App Store Connect (appstoreconnect.apple.com) eine neue App anlegen
+  mit der Bundle-ID „de.gechn.ebenezer“.
+- In Xcode: Ziel „Any iOS Device“ wählen → Menü Product → Archive →
+  Distribute App → App Store Connect.
+- Für den Store werden Bildschirmfotos und eine Datenschutzangabe verlangt:
+  Die App speichert alles nur lokal auf dem Gerät und sammelt keine Daten
+  („Data Not Collected“).
+
+
+3. Kein Mac vorhanden?
+----------------------
+- Mac ausleihen (Freunde, Gemeinde) – Schritte wie oben.
+- Mac in der Cloud stundenweise mieten und dort dieselben Schritte machen.
+- Cloud-Build-Dienste (z. B. Codemagic, Bitrise, GitHub Actions) können das
+  Projekt ohne eigenen Mac bauen und direkt zu TestFlight/App Store hochladen.
+  Dafür ist die kostenpflichtige Apple-Developer-Mitgliedschaft nötig.
+  Die Datei .github/workflows/ios-build.yml prüft auf GitHub automatisch,
+  ob das Projekt fehlerfrei baut.
+
+
+Aufbau des Projekts
+-------------------
+EbenEzer/EbenEzerApp.swift   Start der App, Navigation
+EbenEzer/Model.swift         Datenmodell & Sicherungsformat (wie Android)
+EbenEzer/Store.swift         Speichern, Filtern, Sicherung
+EbenEzer/HomeView.swift      Startseite
+EbenEzer/DetailView.swift    Zeugnis ansehen
+EbenEzer/EditView.swift      Zeugnis anlegen/bearbeiten
+EbenEzer/SettingsView.swift  Einstellungen
+EbenEzer/LockView.swift      App-Sperre
+EbenEzer/MediaViews.swift    Fotos, Videos, Audio, Kamera
+EbenEzer/Share.swift         Teilen & Bild-Karte
+EbenEzer/Theme.swift         Farben, Schriften, Logo
+EbenEzer/Zip.swift           ZIP-Sicherung
